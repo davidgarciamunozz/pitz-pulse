@@ -15,6 +15,7 @@ class Settings(BaseModel):
     model_config = ConfigDict(frozen=True, extra="forbid", allow_inf_nan=False)
 
     api_key: SecretStr | None = Field(default=None, repr=False)
+    service_api_key: SecretStr | None = Field(default=None, repr=False)
     model: str = Field(default="gpt-4.1-mini-2025-04-14", min_length=1)
     prompt_version: str = "v1"
     timeout_seconds: float = Field(default=15, gt=0)
@@ -51,6 +52,7 @@ class Settings(BaseModel):
             source = environ
         names = {
             "OPENAI_API_KEY": "api_key",
+            "PITZ_API_KEY": "service_api_key",
             "OPENAI_MODEL": "model",
             "PROMPT_VERSION": "prompt_version",
             "MODEL_TIMEOUT_SECONDS": "timeout_seconds",

@@ -2,6 +2,7 @@
 
 import asyncio
 from collections.abc import Mapping
+from dataclasses import dataclass
 
 from pydantic import ValidationError
 
@@ -11,12 +12,22 @@ from app.persistence.models import InProgress, RequestRecord, RequestState
 from app.persistence.repository import RequestRepository
 
 
+@dataclass(frozen=True)
+class SubmissionResult:
+    outcome: RequestRecord | InProgress
+    created: bool
+
+
 class RequestService:
     def __init__(self, repository: RequestRepository, pipeline: ClassificationPipeline) -> None:
         self._repository = repository
         self._pipeline = pipeline
 
     async def submit(self, *, message_id: str, raw_message: str) -> RequestRecord | InProgress:
+        result = await self.submit_with_outcome(message_id=message_id, raw_message=raw_message)
+        return result.outcome
+
+    async def submit_with_outcome(self, *, message_id: str, raw_message: str) -> SubmissionResult:
         if not isinstance(message_id, str) or not message_id.strip():
             raise ValueError("Message ID must be a non-empty string.")
         if not isinstance(raw_message, str) or not raw_message.strip():
@@ -24,8 +35,10 @@ class RequestService:
         reservation = await self._repository.reserve(message_id, raw_message)
         if not reservation.won:
             if reservation.record.state is RequestState.PROCESSING:
-                return InProgress(id=message_id, created_at=reservation.record.created_at)
-            return reservation.record
+                return SubmissionResult(
+                    InProgress(id=message_id, created_at=reservation.record.created_at), False
+                )
+            return SubmissionResult(reservation.record, False)
 
         try:
             result = await self._pipeline.classify_with_metadata(
@@ -43,9 +56,9 @@ class RequestService:
                 code = "timeout"
             else:
                 code = "unexpected_error"
-            return await self._repository.mark_failed(message_id, code)
+            return SubmissionResult(await self._repository.mark_failed(message_id, code), True)
         try:
-            return await self._repository.complete(message_id, result)
+            return SubmissionResult(await self._repository.complete(message_id, result), True)
         except Exception:
             try:
                 await self._repository.mark_failed(message_id, "persistence_error")

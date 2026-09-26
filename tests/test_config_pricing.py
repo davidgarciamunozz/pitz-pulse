@@ -73,6 +73,7 @@ def test_env_example_matches_supported_configuration_keys():
     example = Path(__file__).resolve().parents[1] / ".env.example"
     expected = {
         "OPENAI_API_KEY",
+        "PITZ_API_KEY",
         "OPENAI_MODEL",
         "PROMPT_VERSION",
         "MODEL_TIMEOUT_SECONDS",
@@ -86,6 +87,12 @@ def test_env_example_matches_supported_configuration_keys():
         "DATABASE_PATH",
     }
     assert set(dotenv_values(example)) == expected
+
+
+def test_service_api_key_uses_explicit_environment_mapping_without_revealing_value():
+    settings = Settings.from_env({"PITZ_API_KEY": "test-only-config-key"})
+    assert settings.service_api_key.get_secret_value() == "test-only-config-key"
+    assert "test-only-config-key" not in repr(settings)
 
 
 def test_environment_configuration_and_secret_representation():
