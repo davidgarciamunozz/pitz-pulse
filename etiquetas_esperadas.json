@@ -16,14 +16,14 @@
     "id": "MSG-02",
     "expected": {
       "categoria": "datos",
-      "prioridad": "baja",
+      "prioridad": "media",
       "area_sugerida": "data",
       "idioma": "pt",
       "resumen": "Solicitan ventas de agosto por estado, con total y comisión de Pitz, para el cierre mensual del viernes.",
       "requiere_info": false,
       "pregunta_seguimiento": null
     },
-    "justification": "A scoped data request with a deadline but no stated immediate blockage, financial loss, or legal obligation; finance-related content alone does not establish high priority."
+    "justification": "Month-end financial reporting with an explicit Friday deadline affects an internal area's operations; medium priority fits that impact without assuming customer harm or a legal incident."
   },
   {
     "id": "MSG-03",
@@ -145,14 +145,14 @@
   {
     "id": "MSG-12",
     "expected": {
-      "categoria": "consulta",
+      "categoria": "bug",
       "prioridad": "alta",
-      "area_sugerida": "producto",
+      "area_sugerida": "backend",
       "idioma": "es",
-      "resumen": "Solicitan cómo reembolsar un pago duplicado; reportan tres casos similares durante el mes.",
+      "resumen": "Un distribuidor reporta pagos duplicados en tres casos este mes y solicita reembolso.",
       "requiere_info": true,
       "pregunta_seguimiento": "¿Qué pedido y pagos están afectados, y la duplicación ocurrió al repetir el pago o en un solo intento?"
     },
-    "justification": "The explicit request asks for refund procedure, so use consulta and provisional product ownership; actual duplicate payment warrants high priority, while recurrence alone does not prove a software bug."
+    "justification": "Three duplicate-charge cases in one month indicate a recurring payment defect requiring backend investigation; money is directly affected, so priority remains high even though the requester also asks how to refund."
   }
 ]
