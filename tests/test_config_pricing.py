@@ -83,6 +83,7 @@ def test_env_example_matches_supported_configuration_keys():
         "OPENAI_INPUT_PRICE_PER_MILLION",
         "OPENAI_OUTPUT_PRICE_PER_MILLION",
         "OPENAI_CACHED_INPUT_PRICE_PER_MILLION",
+        "DATABASE_PATH",
     }
     assert set(dotenv_values(example)) == expected
 

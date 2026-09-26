@@ -9,6 +9,7 @@ from pydantic import ValidationError
 from app.classification.pricing import ModelPricing, estimate_cost
 from app.classification.prompts import PromptDefinition, load_prompt
 from app.classification.provider import Classifier, ProviderError
+from app.classification.result import ClassificationResult, SuccessfulCallMetadata
 from app.config import Settings
 from app.masking import mask_sensitive_data
 from app.observability import configure_json_logging, log_attempt
@@ -52,6 +53,12 @@ class ClassificationPipeline:
             )
 
     async def classify(self, *, message_id: str, raw_message: str) -> Classification:
+        result = await self.classify_with_metadata(message_id=message_id, raw_message=raw_message)
+        return result.classification
+
+    async def classify_with_metadata(
+        self, *, message_id: str, raw_message: str
+    ) -> ClassificationResult:
         if not isinstance(message_id, str) or not message_id.strip():
             raise ValueError("Message ID must be a non-empty string.")
         masked_message = mask_sensitive_data(raw_message)
@@ -119,6 +126,7 @@ class ClassificationPipeline:
                     if not retryable or attempt == self._settings.max_attempts:
                         raise
                 else:
+                    estimated_cost = estimate_cost(result.model, result.usage, self._pricing)
                     log_attempt(
                         message_id=message_id,
                         model=result.model,
@@ -126,10 +134,24 @@ class ClassificationPipeline:
                         attempt=attempt,
                         latency_ms=result.latency_ms,
                         usage=result.usage,
-                        cost=estimate_cost(result.model, result.usage, self._pricing),
+                        cost=estimated_cost,
                         success=True,
                     )
-                    return classification
+                    return ClassificationResult(
+                        classification=classification,
+                        metadata=SuccessfulCallMetadata(
+                            model=result.model,
+                            attempt=attempt,
+                            input_tokens=result.usage.input_tokens if result.usage else None,
+                            output_tokens=result.usage.output_tokens if result.usage else None,
+                            cached_input_tokens=result.usage.cached_input_tokens
+                            if result.usage
+                            else None,
+                            latency_ms=result.latency_ms,
+                            estimated_cost_usd=estimated_cost,
+                            prompt_version=self._prompt.version,
+                        ),
+                    )
             delay = min(
                 self._settings.backoff_base_seconds * 2 ** (attempt - 1),
                 self._settings.backoff_max_seconds,

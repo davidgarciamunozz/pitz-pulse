@@ -4,6 +4,7 @@ import pytest
 from pydantic import ValidationError
 
 from app.classification.pipeline import ClassificationPipeline
+from app.classification.provider import ProviderResult, TokenUsage
 from app.config import Settings
 from tests.fakes import RecordingFakeClassifier
 
@@ -76,3 +77,27 @@ def test_provider_failure_propagates_without_exposing_raw_message(provider_respo
             ClassificationPipeline(fake).classify(message_id="MSG-1", raw_message="ana@example.com")
         )
     assert fake.calls == [("[EMAIL]", "v1")]
+
+
+def test_classify_with_metadata_preserves_successful_provider_usage(provider_response):
+    class MetadataClassifier:
+        model = "test-model"
+
+        async def classify(self, *, masked_message, prompt):
+            assert masked_message == "[EMAIL]"
+            assert prompt.version == "v1"
+            return ProviderResult(provider_response, "test-model", 12.5, TokenUsage(100, 20, 10))
+
+    pipeline = ClassificationPipeline(MetadataClassifier())
+    result = asyncio.run(
+        pipeline.classify_with_metadata(message_id="R-1", raw_message="ana@example.com")
+    )
+    assert result.classification.id == "R-1"
+    assert result.metadata.model == "test-model"
+    assert result.metadata.attempt == 1
+    assert result.metadata.input_tokens == 100
+    assert result.metadata.output_tokens == 20
+    assert result.metadata.cached_input_tokens == 10
+    assert result.metadata.latency_ms == 12.5
+    assert result.metadata.estimated_cost_usd is None
+    assert result.metadata.prompt_version == result.classification.version_prompt == "v1"

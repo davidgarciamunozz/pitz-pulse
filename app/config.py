@@ -25,6 +25,7 @@ class Settings(BaseModel):
     input_price_per_million: Decimal | None = Field(default=None, ge=0)
     output_price_per_million: Decimal | None = Field(default=None, ge=0)
     cached_input_price_per_million: Decimal | None = Field(default=None, ge=0)
+    database_path: Path = Path("data/pitz-pulse.sqlite3")
 
     @model_validator(mode="after")
     def validate_settings(self) -> "Settings":
@@ -60,6 +61,7 @@ class Settings(BaseModel):
             "OPENAI_INPUT_PRICE_PER_MILLION": "input_price_per_million",
             "OPENAI_OUTPUT_PRICE_PER_MILLION": "output_price_per_million",
             "OPENAI_CACHED_INPUT_PRICE_PER_MILLION": "cached_input_price_per_million",
+            "DATABASE_PATH": "database_path",
         }
         return cls.model_validate(
             {field: source[name] for name, field in names.items() if name in source}
