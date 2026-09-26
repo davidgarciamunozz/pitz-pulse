@@ -1,0 +1,62 @@
+[
+  {
+    "id": "MSG-01",
+    "source_area": "Comercial MX",
+    "message": "Hola equipo, un vendedor de Guadalajara dice que desde ayer no puede subir su catálogo, le sale error 500 al cargar el Excel. Tiene una campaña que arranca el lunes."
+  },
+  {
+    "id": "MSG-02",
+    "source_area": "Financeiro BR",
+    "message": "Oi pessoal, preciso de uma planilha com todas as vendas de agosto por estado, com o valor total e a comissão da Pitz. É para o fechamento do mês até sexta."
+  },
+  {
+    "id": "MSG-03",
+    "source_area": "Soporte MX",
+    "message": "Me pueden dar acceso al panel de administración? Entré nueva esta semana."
+  },
+  {
+    "id": "MSG-04",
+    "source_area": "Operações BR",
+    "message": "Todo dia eu copio manualmente os pedidos novos do painel para uma planilha e mando por e-mail para os distribuidores. Leva umas 2 horas. Dá pra automatizar?"
+  },
+  {
+    "id": "MSG-05",
+    "source_area": "Marketing",
+    "message": "No me aparecen los registros de la última campaña en HubSpot, no sé si es un problema de ustedes o nuestro."
+  },
+  {
+    "id": "MSG-06",
+    "source_area": "Suporte BR",
+    "message": "Um mecânico falou que o botão de finalizar compra some no celular dele quando ele coloca o cupom. No computador funciona normal."
+  },
+  {
+    "id": "MSG-07",
+    "source_area": "Comercial MX",
+    "message": "¿Cuántos talleres activos tenemos en Monterrey? Lo necesito para una reunión con un distribuidor."
+  },
+  {
+    "id": "MSG-08",
+    "source_area": "Financeiro BR",
+    "message": "URGENTE: algumas notas fiscais de hoje estão saindo com o CNPJ errado do vendedor. Já temos reclamação de dois clientes."
+  },
+  {
+    "id": "MSG-09",
+    "source_area": "Operaciones MX",
+    "message": "Oigan, la plataforma está lenta."
+  },
+  {
+    "id": "MSG-10",
+    "source_area": "People",
+    "message": "Sería genial tener algo que le mande un mensaje a cada persona en su aniversario de trabajo en Pitz."
+  },
+  {
+    "id": "MSG-11",
+    "source_area": "Comercial BR",
+    "message": "Qual é a diferença entre o plano básico e o plano pro para vendedores? Um cliente perguntou e eu não soube explicar."
+  },
+  {
+    "id": "MSG-12",
+    "source_area": "Soporte MX",
+    "message": "Un distribuidor pagó dos veces el mismo pedido y pide el reembolso. ¿Cómo lo proceso? Ya van tres casos así este mes."
+  }
+]

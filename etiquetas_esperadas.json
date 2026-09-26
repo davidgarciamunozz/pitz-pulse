@@ -1,0 +1,158 @@
+[
+  {
+    "id": "MSG-01",
+    "expected": {
+      "categoria": "bug",
+      "prioridad": "alta",
+      "area_sugerida": "backend",
+      "idioma": "es",
+      "resumen": "Vendedor recibe error 500 al subir su catálogo en Excel antes de una campaña comercial.",
+      "requiere_info": true,
+      "pregunta_seguimiento": "¿Qué vendedor está afectado y qué archivo provoca el error?"
+    },
+    "justification": "High priority because a customer's catalog operation is blocked with no stated workaround; the HTTP 500 suggests backend triage, pending seller and file details."
+  },
+  {
+    "id": "MSG-02",
+    "expected": {
+      "categoria": "datos",
+      "prioridad": "baja",
+      "area_sugerida": "data",
+      "idioma": "pt",
+      "resumen": "Solicitan ventas de agosto por estado, con total y comisión de Pitz, para el cierre mensual del viernes.",
+      "requiere_info": false,
+      "pregunta_seguimiento": null
+    },
+    "justification": "A scoped data request with a deadline but no stated immediate blockage, financial loss, or legal obligation; finance-related content alone does not establish high priority."
+  },
+  {
+    "id": "MSG-03",
+    "expected": {
+      "categoria": "acceso",
+      "prioridad": "baja",
+      "area_sugerida": "devops",
+      "idioma": "es",
+      "resumen": "Una nueva integrante de soporte solicita acceso al panel de administración.",
+      "requiere_info": true,
+      "pregunta_seguimiento": "¿Qué cuenta necesita acceso, con qué rol y quién autoriza la solicitud?"
+    },
+    "justification": "Routine onboarding access with no explicit operational blockage; DevOps provisionally owns access administration, and account, role, and approval are required before granting it."
+  },
+  {
+    "id": "MSG-04",
+    "expected": {
+      "categoria": "automatizacion",
+      "prioridad": "baja",
+      "area_sugerida": "digital_transformation",
+      "idioma": "pt",
+      "resumen": "Solicitan automatizar la copia diaria de pedidos a una hoja y su envío por correo a distribuidores.",
+      "requiere_info": false,
+      "pregunta_seguimiento": null
+    },
+    "justification": "An efficiency improvement to a functioning manual process; the described source, output, recipients, and frequency are enough to begin discovery, not implementation."
+  },
+  {
+    "id": "MSG-05",
+    "expected": {
+      "categoria": "bug",
+      "prioridad": "media",
+      "area_sugerida": "digital_transformation",
+      "idioma": "es",
+      "resumen": "Marketing no encuentra en HubSpot los registros de la última campaña y desconoce el origen del problema.",
+      "requiere_info": true,
+      "pregunta_seguimiento": "¿Qué campaña y fechas están afectadas, y los registros aparecen en el sistema de origen?"
+    },
+    "justification": "Provisional medium priority for a reported failure limited to Marketing; confirm impact and workaround because neither is fully established, and route CRM workflow triage to Digital Transformation without asserting a root cause."
+  },
+  {
+    "id": "MSG-06",
+    "expected": {
+      "categoria": "bug",
+      "prioridad": "media",
+      "area_sugerida": "frontend",
+      "idioma": "pt",
+      "resumen": "El botón de compra desaparece en móvil al aplicar un cupón; en computadora funciona.",
+      "requiere_info": true,
+      "pregunta_seguimiento": "Qual celular, navegador e cupom foram usados quando o botão desapareceu?"
+    },
+    "justification": "The rubric's limited-user impact with an explicit desktop workaround supports medium priority despite the checkout context; the disappearing button suggests frontend triage."
+  },
+  {
+    "id": "MSG-07",
+    "expected": {
+      "categoria": "datos",
+      "prioridad": "baja",
+      "area_sugerida": "data",
+      "idioma": "es",
+      "resumen": "Solicitan la cantidad de talleres activos en Monterrey para una reunión con un distribuidor.",
+      "requiere_info": true,
+      "pregunta_seguimiento": "¿Qué criterio y período debemos usar para considerar activo a un taller?"
+    },
+    "justification": "A business metric request rather than a general product question, with no immediate impact stated; the undefined active-workshop criterion prevents an unambiguous count."
+  },
+  {
+    "id": "MSG-08",
+    "expected": {
+      "categoria": "bug",
+      "prioridad": "alta",
+      "area_sugerida": "backend",
+      "idioma": "pt",
+      "resumen": "Algunas facturas de hoy muestran un CNPJ incorrecto del vendedor y ya provocaron reclamos de dos clientes.",
+      "requiere_info": true,
+      "pregunta_seguimiento": "Quais notas fiscais e vendedores foram afetados, e qual cadastro deveria ter sido usado?"
+    },
+    "justification": "Incorrect tax identifiers on issued invoices affect customers and legal obligations; high priority follows from impact, not the word URGENTE, with backend as the provisional billing owner."
+  },
+  {
+    "id": "MSG-09",
+    "expected": {
+      "categoria": "bug",
+      "prioridad": "media",
+      "area_sugerida": "devops",
+      "idioma": "es",
+      "resumen": "Operaciones reporta lentitud en la plataforma sin precisar alcance, duración ni funciones afectadas.",
+      "requiere_info": true,
+      "pregunta_seguimiento": "¿Desde cuándo ocurre, qué funciones y usuarios afecta, y pueden continuar trabajando de alguna forma?"
+    },
+    "justification": "Use medium as a provisional triage default for an underspecified degradation, not an established impact level; scope and workaround are unknown, and DevOps initially investigates performance."
+  },
+  {
+    "id": "MSG-10",
+    "expected": {
+      "categoria": "automatizacion",
+      "prioridad": "baja",
+      "area_sugerida": "digital_transformation",
+      "idioma": "es",
+      "resumen": "Proponen enviar automáticamente un mensaje a cada persona en su aniversario de trabajo en Pitz.",
+      "requiere_info": false,
+      "pregunta_seguimiento": null
+    },
+    "justification": "A nonurgent automation idea with a clear trigger and intended action, sufficient for initial discovery; delivery channel and employee data source can be resolved during that work."
+  },
+  {
+    "id": "MSG-11",
+    "expected": {
+      "categoria": "consulta",
+      "prioridad": "baja",
+      "area_sugerida": "producto",
+      "idioma": "pt",
+      "resumen": "Solicitan explicar la diferencia entre los planes básico y pro para vendedores ante una pregunta de un cliente.",
+      "requiere_info": false,
+      "pregunta_seguimiento": null
+    },
+    "justification": "A clear product-plan question with no reported malfunction, blocked sale, or immediate financial impact."
+  },
+  {
+    "id": "MSG-12",
+    "expected": {
+      "categoria": "consulta",
+      "prioridad": "alta",
+      "area_sugerida": "producto",
+      "idioma": "es",
+      "resumen": "Solicitan cómo reembolsar un pago duplicado; reportan tres casos similares durante el mes.",
+      "requiere_info": true,
+      "pregunta_seguimiento": "¿Qué pedido y pagos están afectados, y la duplicación ocurrió al repetir el pago o en un solo intento?"
+    },
+    "justification": "The explicit request asks for refund procedure, so use consulta and provisional product ownership; actual duplicate payment warrants high priority, while recurrence alone does not prove a software bug."
+  }
+]
