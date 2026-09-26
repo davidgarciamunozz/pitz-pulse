@@ -7,10 +7,10 @@ name = "pitz-pulse"
 version = "0.1.0"
 description = "Classification contracts for internal request triage."
 requires-python = ">=3.12,<3.13"
-dependencies = ["pydantic==2.12.5"]
+dependencies = ["pydantic==2.12.5", "openai==2.54.0", "python-dotenv==1.2.3"]
 
 [project.optional-dependencies]
-dev = ["pytest==8.4.2", "ruff==0.14.10"]
+dev = ["pytest==8.4.2", "ruff==0.14.10", "httpx==0.28.1"]
 
 [tool.setuptools.packages.find]
 include = ["app*"]

@@ -4,6 +4,7 @@ import pytest
 from pydantic import ValidationError
 
 from app.classification.pipeline import ClassificationPipeline
+from app.config import Settings
 from tests.fakes import RecordingFakeClassifier
 
 
@@ -28,9 +29,7 @@ def test_raw_identifiers_never_reach_the_recording_classifier(provider_response)
     )
 
     result = asyncio.run(
-        ClassificationPipeline(fake).classify(
-            message_id="MSG-PRIVACY", raw_message=raw_message, prompt_version="v1"
-        )
+        ClassificationPipeline(fake).classify(message_id="MSG-PRIVACY", raw_message=raw_message)
     )
 
     assert fake.calls == [("Cliente [CNPJ] / [RFC]: [EMAIL], [PHONE].", "v1")]
@@ -49,12 +48,8 @@ def test_raw_identifiers_never_reach_the_recording_classifier(provider_response)
 def test_fake_returns_deterministic_classification_without_a_network_client(provider_response):
     fake = RecordingFakeClassifier(provider_response)
     pipeline = ClassificationPipeline(fake)
-    first = asyncio.run(
-        pipeline.classify(message_id="MSG-1", raw_message="Request A", prompt_version="v1")
-    )
-    second = asyncio.run(
-        pipeline.classify(message_id="MSG-2", raw_message="Request B", prompt_version="v1")
-    )
+    first = asyncio.run(pipeline.classify(message_id="MSG-1", raw_message="Request A"))
+    second = asyncio.run(pipeline.classify(message_id="MSG-2", raw_message="Request B"))
 
     assert first.categoria == second.categoria == "bug"
     assert first.id == "MSG-1"
@@ -67,8 +62,8 @@ def test_invalid_provider_result_is_rejected_after_masking(provider_response):
     fake = RecordingFakeClassifier(provider_response)
     with pytest.raises(ValidationError):
         asyncio.run(
-            ClassificationPipeline(fake).classify(
-                message_id="MSG-1", raw_message="ana@example.com", prompt_version="v1"
+            ClassificationPipeline(fake, settings=Settings(max_attempts=1)).classify(
+                message_id="MSG-1", raw_message="ana@example.com"
             )
         )
     assert fake.calls == [("[EMAIL]", "v1")]
@@ -78,8 +73,6 @@ def test_provider_failure_propagates_without_exposing_raw_message(provider_respo
     fake = RecordingFakeClassifier(provider_response, failure=RuntimeError("provider unavailable"))
     with pytest.raises(RuntimeError, match="provider unavailable"):
         asyncio.run(
-            ClassificationPipeline(fake).classify(
-                message_id="MSG-1", raw_message="ana@example.com", prompt_version="v1"
-            )
+            ClassificationPipeline(fake).classify(message_id="MSG-1", raw_message="ana@example.com")
         )
     assert fake.calls == [("[EMAIL]", "v1")]

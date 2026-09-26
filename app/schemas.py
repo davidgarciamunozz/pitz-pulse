@@ -41,11 +41,16 @@ class ClassificationContent(BaseModel):
         return self
 
 
-class Classification(ClassificationContent):
+class ProviderClassification(ClassificationContent):
+    """Model-generated fields, excluding application identity and provenance."""
+
+    confianza: float = Field(ge=0, le=1)
+
+
+class Classification(ProviderClassification):
     """Complete external contract, including message identity and model metadata."""
 
     id: str
-    confianza: float = Field(ge=0, le=1)
     version_prompt: str
 
     @field_validator("id", "version_prompt")
