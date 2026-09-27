@@ -25,6 +25,7 @@ from app.classification.openai_provider import OpenAIClassifier
 from app.classification.pipeline import ClassificationPipeline
 from app.classification.provider import Classifier
 from app.config import Settings
+from app.observability import configure_json_logging
 from app.persistence.database import initialize_database
 from app.persistence.models import (
     IdempotencyConflict,
@@ -48,6 +49,7 @@ def create_app(
         if key is None or not key.get_secret_value().strip():
             raise RuntimeError("PITZ_API_KEY must be configured before starting the API.")
         await initialize_database(resolved.database_path)
+        configure_json_logging()
         pipeline = ClassificationPipeline(
             classifier if classifier is not None else OpenAIClassifier(resolved), settings=resolved
         )

@@ -1,6 +1,8 @@
 """HTTP behavior uses a fake classifier and file-backed temporary databases."""
 
 import asyncio
+import json
+import logging
 from contextlib import asynccontextmanager
 
 import pytest
@@ -10,11 +12,24 @@ from pydantic import SecretStr
 from app.api.main import create_app
 from app.classification.provider import ErrorKind, ProviderError
 from app.config import Settings
+from app.observability import LOGGER_NAME
 from app.persistence.models import RequestState
 from app.persistence.repository import RequestRepository
 from tests.fakes import RecordingFakeClassifier
 
 AUTH = {"X-API-Key": "test-only-api-key"}
+
+
+@pytest.fixture(autouse=True)
+def restore_model_call_logger():
+    logger = logging.getLogger(LOGGER_NAME)
+    previous_handlers = logger.handlers[:]
+    previous_level = logger.level
+    previous_propagate = logger.propagate
+    yield
+    logger.handlers = previous_handlers
+    logger.setLevel(previous_level)
+    logger.propagate = previous_propagate
 
 
 @asynccontextmanager
@@ -384,5 +399,75 @@ def test_startup_without_service_api_key_fails_closed(tmp_path, valid_model_outp
             async with app.router.lifespan_context(app):
                 pass
         assert not settings.database_path.exists()
+
+    asyncio.run(scenario())
+
+
+def test_api_startup_enables_content_free_model_call_info_events(
+    tmp_path, valid_model_output, monkeypatch, capsys
+):
+    logger = logging.getLogger(LOGGER_NAME)
+    monkeypatch.setattr(logger, "handlers", [])
+    monkeypatch.setattr(logger, "level", logging.WARNING)
+    monkeypatch.setattr(logger, "propagate", True)
+    logger.setLevel(logging.WARNING)
+    assert not logger.isEnabledFor(logging.INFO)
+
+    output = {**valid_model_output, "resumen": "Resumen privado para prueba."}
+
+    async def scenario():
+        fake = RecordingFakeClassifier(output)
+        async with api_client(tmp_path, output, fake=fake) as (client, _, _, _):
+            assert logger.isEnabledFor(logging.INFO)
+            assert len(logger.handlers) == 1
+            assert not logger.propagate
+            response = await post(client, message_id="LOG-1", message="Correo ana@example.com")
+            assert response.status_code == 201
+            assert fake.calls == [("Correo [EMAIL]", "v1")]
+
+    asyncio.run(scenario())
+
+    events = [json.loads(line) for line in capsys.readouterr().err.splitlines()]
+    assert len(events) == 1
+    assert events[0] == {
+        "event": "model_call",
+        "message_id": "LOG-1",
+        "model": "test-model",
+        "prompt_version": "v1",
+        "attempt": 1,
+        "latency_ms": 0,
+        "input_tokens": None,
+        "output_tokens": None,
+        "cached_input_tokens": None,
+        "estimated_cost_usd": None,
+        "success": True,
+    }
+    serialized = json.dumps(events)
+    for sensitive in (
+        "ana@example.com",
+        "Correo [EMAIL]",
+        "Resumen privado para prueba.",
+        AUTH["X-API-Key"],
+    ):
+        assert sensitive not in serialized
+
+
+def test_repeated_api_lifespans_reuse_one_model_call_handler(
+    tmp_path, valid_model_output, monkeypatch
+):
+    logger = logging.getLogger(LOGGER_NAME)
+    monkeypatch.setattr(logger, "handlers", [])
+    monkeypatch.setattr(logger, "level", logging.WARNING)
+    monkeypatch.setattr(logger, "propagate", True)
+    logger.setLevel(logging.WARNING)
+
+    async def scenario():
+        async with api_client(tmp_path, valid_model_output):
+            first_handler = logger.handlers[0]
+            assert logger.isEnabledFor(logging.INFO)
+            assert len(logger.handlers) == 1
+        async with api_client(tmp_path, valid_model_output):
+            assert logger.handlers == [first_handler]
+            assert logger.isEnabledFor(logging.INFO)
 
     asyncio.run(scenario())
