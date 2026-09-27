@@ -1,0 +1,253 @@
+{
+  "run_id": "v2-01",
+  "prompt_version": "v2",
+  "configured_model": "gpt-4.1-mini-2025-04-14",
+  "actual_models": [],
+  "inputs": {
+    "prompt_sha256": "73dcb8c2f3754ee115f4b7fdee5b1f89efd4e483af2a8846fb4f4249c5ade5db",
+    "messages_sha256": "e998765ab5721e3ad7c32c615efae5e37a16bc739573c44f7f83e83a8ad685e5",
+    "references_sha256": "33028561ebe848aaef3aa4731bb01b68b9d16c44d077f90f667a943bb23ae35d"
+  },
+  "scores": {
+    "fields": {
+      "categoria": {
+        "correct": 0,
+        "total": 12,
+        "accuracy": 0.0
+      },
+      "prioridad": {
+        "correct": 0,
+        "total": 12,
+        "accuracy": 0.0
+      },
+      "area_sugerida": {
+        "correct": 0,
+        "total": 12,
+        "accuracy": 0.0
+      },
+      "idioma": {
+        "correct": 0,
+        "total": 12,
+        "accuracy": 0.0
+      },
+      "requiere_info": {
+        "correct": 0,
+        "total": 12,
+        "accuracy": 0.0
+      }
+    },
+    "overall_exact_fields": {
+      "correct": 0,
+      "total": 60,
+      "accuracy": 0.0
+    },
+    "all_five_fields": {
+      "correct": 0,
+      "total": 12,
+      "accuracy": 0.0
+    },
+    "exact_message_ids": [],
+    "mismatches": [
+      {
+        "id": "MSG-01",
+        "state": "failed",
+        "fields": []
+      },
+      {
+        "id": "MSG-02",
+        "state": "failed",
+        "fields": []
+      },
+      {
+        "id": "MSG-03",
+        "state": "failed",
+        "fields": []
+      },
+      {
+        "id": "MSG-04",
+        "state": "failed",
+        "fields": []
+      },
+      {
+        "id": "MSG-05",
+        "state": "failed",
+        "fields": []
+      },
+      {
+        "id": "MSG-06",
+        "state": "failed",
+        "fields": []
+      },
+      {
+        "id": "MSG-07",
+        "state": "failed",
+        "fields": []
+      },
+      {
+        "id": "MSG-08",
+        "state": "failed",
+        "fields": []
+      },
+      {
+        "id": "MSG-09",
+        "state": "failed",
+        "fields": []
+      },
+      {
+        "id": "MSG-10",
+        "state": "failed",
+        "fields": []
+      },
+      {
+        "id": "MSG-11",
+        "state": "failed",
+        "fields": []
+      },
+      {
+        "id": "MSG-12",
+        "state": "failed",
+        "fields": []
+      }
+    ],
+    "failures": [
+      {
+        "id": "MSG-01",
+        "state": "failed",
+        "category": "connection"
+      },
+      {
+        "id": "MSG-02",
+        "state": "failed",
+        "category": "connection"
+      },
+      {
+        "id": "MSG-03",
+        "state": "failed",
+        "category": "connection"
+      },
+      {
+        "id": "MSG-04",
+        "state": "failed",
+        "category": "connection"
+      },
+      {
+        "id": "MSG-05",
+        "state": "failed",
+        "category": "connection"
+      },
+      {
+        "id": "MSG-06",
+        "state": "failed",
+        "category": "connection"
+      },
+      {
+        "id": "MSG-07",
+        "state": "failed",
+        "category": "connection"
+      },
+      {
+        "id": "MSG-08",
+        "state": "failed",
+        "category": "connection"
+      },
+      {
+        "id": "MSG-09",
+        "state": "failed",
+        "category": "connection"
+      },
+      {
+        "id": "MSG-10",
+        "state": "failed",
+        "category": "connection"
+      },
+      {
+        "id": "MSG-11",
+        "state": "failed",
+        "category": "connection"
+      },
+      {
+        "id": "MSG-12",
+        "state": "failed",
+        "category": "connection"
+      }
+    ],
+    "failure_counts": {
+      "failed": 12
+    },
+    "failure_category_counts": {
+      "connection": 12
+    },
+    "confidence": {
+      "exact": {
+        "count": 0,
+        "mean": null,
+        "median": null
+      },
+      "disagreement": {
+        "count": 0,
+        "mean": null,
+        "median": null
+      },
+      "lowest_successful": [],
+      "highest_confidence_mistakes": []
+    }
+  },
+  "usage": {
+    "observed_model_calls": 36,
+    "input_tokens_known_subtotal": 0,
+    "output_tokens_known_subtotal": 0,
+    "estimated_cost_usd_known_subtotal": 0,
+    "usage_complete": false,
+    "cost_complete": false,
+    "accounting_incomplete_reasons": [
+      {
+        "message_id": "MSG-01",
+        "reason": "failed_attempt_count_unknown"
+      },
+      {
+        "message_id": "MSG-02",
+        "reason": "failed_attempt_count_unknown"
+      },
+      {
+        "message_id": "MSG-03",
+        "reason": "failed_attempt_count_unknown"
+      },
+      {
+        "message_id": "MSG-04",
+        "reason": "failed_attempt_count_unknown"
+      },
+      {
+        "message_id": "MSG-05",
+        "reason": "failed_attempt_count_unknown"
+      },
+      {
+        "message_id": "MSG-06",
+        "reason": "failed_attempt_count_unknown"
+      },
+      {
+        "message_id": "MSG-07",
+        "reason": "failed_attempt_count_unknown"
+      },
+      {
+        "message_id": "MSG-08",
+        "reason": "failed_attempt_count_unknown"
+      },
+      {
+        "message_id": "MSG-09",
+        "reason": "failed_attempt_count_unknown"
+      },
+      {
+        "message_id": "MSG-10",
+        "reason": "failed_attempt_count_unknown"
+      },
+      {
+        "message_id": "MSG-11",
+        "reason": "failed_attempt_count_unknown"
+      },
+      {
+        "message_id": "MSG-12",
+        "reason": "failed_attempt_count_unknown"
+      }
+    ]
+  }
+}

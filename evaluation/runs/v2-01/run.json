@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "run_id": "v2-01",
+  "created_at": "2026-09-27T05:12:01+00:00",
+  "finished_at": "2026-09-27T05:12:08+00:00",
+  "git_revision": "62ea160e9d3bc3b62fbf3476950b22274fca1c64",
+  "git_dirty": false,
+  "prompt_version": "v2",
+  "inputs": {
+    "prompt_sha256": "73dcb8c2f3754ee115f4b7fdee5b1f89efd4e483af2a8846fb4f4249c5ade5db",
+    "messages_sha256": "e998765ab5721e3ad7c32c615efae5e37a16bc739573c44f7f83e83a8ad685e5",
+    "references_sha256": "33028561ebe848aaef3aa4731bb01b68b9d16c44d077f90f667a943bb23ae35d"
+  },
+  "execution": {
+    "model": "gpt-4.1-mini-2025-04-14",
+    "temperature": 0,
+    "timeout_seconds": 15,
+    "max_attempts": 3,
+    "concurrency_limit": 3,
+    "backoff_base_seconds": 0.5,
+    "backoff_max_seconds": 8,
+    "input_price_per_million": null,
+    "output_price_per_million": null,
+    "cached_input_price_per_million": null
+  },
+  "outcomes": [
+    {
+      "id": "MSG-01",
+      "state": "failed",
+      "failure_category": "connection"
+    },
+    {
+      "id": "MSG-02",
+      "state": "failed",
+      "failure_category": "connection"
+    },
+    {
+      "id": "MSG-03",
+      "state": "failed",
+      "failure_category": "connection"
+    },
+    {
+      "id": "MSG-04",
+      "state": "failed",
+      "failure_category": "connection"
+    },
+    {
+      "id": "MSG-05",
+      "state": "failed",
+      "failure_category": "connection"
+    },
+    {
+      "id": "MSG-06",
+      "state": "failed",
+      "failure_category": "connection"
+    },
+    {
+      "id": "MSG-07",
+      "state": "failed",
+      "failure_category": "connection"
+    },
+    {
+      "id": "MSG-08",
+      "state": "failed",
+      "failure_category": "connection"
+    },
+    {
+      "id": "MSG-09",
+      "state": "failed",
+      "failure_category": "connection"
+    },
+    {
+      "id": "MSG-10",
+      "state": "failed",
+      "failure_category": "connection"
+    },
+    {
+      "id": "MSG-11",
+      "state": "failed",
+      "failure_category": "connection"
+    },
+    {
+      "id": "MSG-12",
+      "state": "failed",
+      "failure_category": "connection"
+    }
+  ]
+}

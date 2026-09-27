@@ -1,0 +1,64 @@
+{
+  "baseline": "v1-01",
+  "candidate": "v2-02",
+  "field_delta": {
+    "categoria": 1,
+    "prioridad": -2,
+    "area_sugerida": 1,
+    "idioma": 0,
+    "requiere_info": 0
+  },
+  "overall_exact_field_delta": 0,
+  "corrected": [
+    {
+      "id": "MSG-02",
+      "field": "requiere_info"
+    },
+    {
+      "id": "MSG-04",
+      "field": "requiere_info"
+    },
+    {
+      "id": "MSG-07",
+      "field": "categoria"
+    },
+    {
+      "id": "MSG-09",
+      "field": "area_sugerida"
+    },
+    {
+      "id": "MSG-10",
+      "field": "requiere_info"
+    },
+    {
+      "id": "MSG-11",
+      "field": "requiere_info"
+    }
+  ],
+  "regressions": [
+    {
+      "id": "MSG-02",
+      "field": "prioridad"
+    },
+    {
+      "id": "MSG-07",
+      "field": "requiere_info"
+    },
+    {
+      "id": "MSG-08",
+      "field": "requiere_info"
+    },
+    {
+      "id": "MSG-09",
+      "field": "requiere_info"
+    },
+    {
+      "id": "MSG-10",
+      "field": "prioridad"
+    },
+    {
+      "id": "MSG-12",
+      "field": "requiere_info"
+    }
+  ]
+}

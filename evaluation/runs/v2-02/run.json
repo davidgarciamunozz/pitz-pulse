@@ -1,0 +1,364 @@
+{
+  "schema_version": 1,
+  "run_id": "v2-02",
+  "created_at": "2026-09-27T05:20:12+00:00",
+  "finished_at": "2026-09-27T05:20:21+00:00",
+  "git_revision": "62ea160e9d3bc3b62fbf3476950b22274fca1c64",
+  "git_dirty": true,
+  "prompt_version": "v2",
+  "inputs": {
+    "prompt_sha256": "73dcb8c2f3754ee115f4b7fdee5b1f89efd4e483af2a8846fb4f4249c5ade5db",
+    "messages_sha256": "e998765ab5721e3ad7c32c615efae5e37a16bc739573c44f7f83e83a8ad685e5",
+    "references_sha256": "33028561ebe848aaef3aa4731bb01b68b9d16c44d077f90f667a943bb23ae35d"
+  },
+  "execution": {
+    "model": "gpt-4.1-mini-2025-04-14",
+    "temperature": 0,
+    "timeout_seconds": 15,
+    "max_attempts": 3,
+    "concurrency_limit": 3,
+    "backoff_base_seconds": 0.5,
+    "backoff_max_seconds": 8,
+    "input_price_per_million": null,
+    "output_price_per_million": null,
+    "cached_input_price_per_million": null
+  },
+  "outcomes": [
+    {
+      "id": "MSG-01",
+      "state": "succeeded",
+      "result": {
+        "classification": {
+          "categoria": "bug",
+          "prioridad": "alta",
+          "area_sugerida": "backend",
+          "idioma": "es",
+          "resumen": "Error 500 al subir catálogo Excel, vendedor de Guadalajara afectado, campaña inicia lunes.",
+          "requiere_info": true,
+          "pregunta_seguimiento": "¿Podrían proporcionar el archivo Excel que genera el error 500 para reproducir el problema?",
+          "confianza": 0.95,
+          "id": "MSG-01",
+          "version_prompt": "v2"
+        },
+        "metadata": {
+          "model": "gpt-4.1-mini-2025-04-14",
+          "attempt": 1,
+          "input_tokens": 1288,
+          "output_tokens": 83,
+          "cached_input_tokens": 0,
+          "latency_ms": 7327.199875027873,
+          "estimated_cost_usd": null,
+          "prompt_version": "v2"
+        }
+      }
+    },
+    {
+      "id": "MSG-02",
+      "state": "succeeded",
+      "result": {
+        "classification": {
+          "categoria": "datos",
+          "prioridad": "alta",
+          "area_sugerida": "data",
+          "idioma": "pt",
+          "resumen": "Solicita planilha com vendas de agosto por estado, valor total e comissão para fechamento mensal.",
+          "requiere_info": false,
+          "pregunta_seguimiento": null,
+          "confianza": 0.95,
+          "id": "MSG-02",
+          "version_prompt": "v2"
+        },
+        "metadata": {
+          "model": "gpt-4.1-mini-2025-04-14",
+          "attempt": 1,
+          "input_tokens": 1289,
+          "output_tokens": 66,
+          "cached_input_tokens": 0,
+          "latency_ms": 2025.2594999037683,
+          "estimated_cost_usd": null,
+          "prompt_version": "v2"
+        }
+      }
+    },
+    {
+      "id": "MSG-03",
+      "state": "succeeded",
+      "result": {
+        "classification": {
+          "categoria": "acceso",
+          "prioridad": "media",
+          "area_sugerida": "devops",
+          "idioma": "es",
+          "resumen": "Solicitan acceso al panel de administración tras ingreso reciente.",
+          "requiere_info": true,
+          "pregunta_seguimiento": "¿Podría proporcionar su nombre completo y correo electrónico para gestionar el acceso?",
+          "confianza": 0.9,
+          "id": "MSG-03",
+          "version_prompt": "v2"
+        },
+        "metadata": {
+          "model": "gpt-4.1-mini-2025-04-14",
+          "attempt": 1,
+          "input_tokens": 1267,
+          "output_tokens": 74,
+          "cached_input_tokens": 0,
+          "latency_ms": 2538.126250030473,
+          "estimated_cost_usd": null,
+          "prompt_version": "v2"
+        }
+      }
+    },
+    {
+      "id": "MSG-04",
+      "state": "succeeded",
+      "result": {
+        "classification": {
+          "categoria": "automatizacion",
+          "prioridad": "media",
+          "area_sugerida": "digital_transformation",
+          "idioma": "pt",
+          "resumen": "Solicita automatizar copia manual de pedidos diarios y envío por email a distribuidores.",
+          "requiere_info": false,
+          "pregunta_seguimiento": null,
+          "confianza": 0.95,
+          "id": "MSG-04",
+          "version_prompt": "v2"
+        },
+        "metadata": {
+          "model": "gpt-4.1-mini-2025-04-14",
+          "attempt": 1,
+          "input_tokens": 1290,
+          "output_tokens": 67,
+          "cached_input_tokens": 0,
+          "latency_ms": 1781.80787502788,
+          "estimated_cost_usd": null,
+          "prompt_version": "v2"
+        }
+      }
+    },
+    {
+      "id": "MSG-05",
+      "state": "succeeded",
+      "result": {
+        "classification": {
+          "categoria": "bug",
+          "prioridad": "media",
+          "area_sugerida": "backend",
+          "idioma": "es",
+          "resumen": "No aparecen registros de la última campaña en HubSpot, posible problema técnico.",
+          "requiere_info": true,
+          "pregunta_seguimiento": "¿Podría proporcionar detalles específicos de la campaña y el momento en que notó la ausencia de registros?",
+          "confianza": 0.85,
+          "id": "MSG-05",
+          "version_prompt": "v2"
+        },
+        "metadata": {
+          "model": "gpt-4.1-mini-2025-04-14",
+          "attempt": 1,
+          "input_tokens": 1276,
+          "output_tokens": 82,
+          "cached_input_tokens": 0,
+          "latency_ms": 2021.3367090327665,
+          "estimated_cost_usd": null,
+          "prompt_version": "v2"
+        }
+      }
+    },
+    {
+      "id": "MSG-06",
+      "state": "succeeded",
+      "result": {
+        "classification": {
+          "categoria": "bug",
+          "prioridad": "media",
+          "area_sugerida": "frontend",
+          "idioma": "pt",
+          "resumen": "Botón de finalizar compra desaparece en celular al aplicar cupón, funciona en computadora.",
+          "requiere_info": true,
+          "pregunta_seguimiento": "Qual o modelo e sistema operacional do celular onde o problema ocorre?",
+          "confianza": 0.9,
+          "id": "MSG-06",
+          "version_prompt": "v2"
+        },
+        "metadata": {
+          "model": "gpt-4.1-mini-2025-04-14",
+          "attempt": 1,
+          "input_tokens": 1278,
+          "output_tokens": 77,
+          "cached_input_tokens": 0,
+          "latency_ms": 1066.8563329381868,
+          "estimated_cost_usd": null,
+          "prompt_version": "v2"
+        }
+      }
+    },
+    {
+      "id": "MSG-07",
+      "state": "succeeded",
+      "result": {
+        "classification": {
+          "categoria": "datos",
+          "prioridad": "media",
+          "area_sugerida": "data",
+          "idioma": "es",
+          "resumen": "Consulta sobre cantidad de talleres activos en Monterrey para reunión con distribuidor.",
+          "requiere_info": false,
+          "pregunta_seguimiento": null,
+          "confianza": 0.95,
+          "id": "MSG-07",
+          "version_prompt": "v2"
+        },
+        "metadata": {
+          "model": "gpt-4.1-mini-2025-04-14",
+          "attempt": 1,
+          "input_tokens": 1272,
+          "output_tokens": 62,
+          "cached_input_tokens": 0,
+          "latency_ms": 1080.3286249283701,
+          "estimated_cost_usd": null,
+          "prompt_version": "v2"
+        }
+      }
+    },
+    {
+      "id": "MSG-08",
+      "state": "succeeded",
+      "result": {
+        "classification": {
+          "categoria": "bug",
+          "prioridad": "alta",
+          "area_sugerida": "backend",
+          "idioma": "pt",
+          "resumen": "Notas fiscais de hoje com CNPJ errado do vendedor, clientes reclamam.",
+          "requiere_info": false,
+          "pregunta_seguimiento": null,
+          "confianza": 0.95,
+          "id": "MSG-08",
+          "version_prompt": "v2"
+        },
+        "metadata": {
+          "model": "gpt-4.1-mini-2025-04-14",
+          "attempt": 1,
+          "input_tokens": 1279,
+          "output_tokens": 62,
+          "cached_input_tokens": 0,
+          "latency_ms": 1234.0116669656709,
+          "estimated_cost_usd": null,
+          "prompt_version": "v2"
+        }
+      }
+    },
+    {
+      "id": "MSG-09",
+      "state": "succeeded",
+      "result": {
+        "classification": {
+          "categoria": "bug",
+          "prioridad": "media",
+          "area_sugerida": "devops",
+          "idioma": "es",
+          "resumen": "La plataforma está lenta, reportan lentitud en el sistema.",
+          "requiere_info": false,
+          "pregunta_seguimiento": null,
+          "confianza": 0.85,
+          "id": "MSG-09",
+          "version_prompt": "v2"
+        },
+        "metadata": {
+          "model": "gpt-4.1-mini-2025-04-14",
+          "attempt": 1,
+          "input_tokens": 1260,
+          "output_tokens": 61,
+          "cached_input_tokens": 0,
+          "latency_ms": 908.3191669778898,
+          "estimated_cost_usd": null,
+          "prompt_version": "v2"
+        }
+      }
+    },
+    {
+      "id": "MSG-10",
+      "state": "succeeded",
+      "result": {
+        "classification": {
+          "categoria": "automatizacion",
+          "prioridad": "media",
+          "area_sugerida": "digital_transformation",
+          "idioma": "es",
+          "resumen": "Solicitan automatización para enviar mensajes en aniversarios laborales en Pitz.",
+          "requiere_info": false,
+          "pregunta_seguimiento": null,
+          "confianza": 0.9,
+          "id": "MSG-10",
+          "version_prompt": "v2"
+        },
+        "metadata": {
+          "model": "gpt-4.1-mini-2025-04-14",
+          "attempt": 1,
+          "input_tokens": 1274,
+          "output_tokens": 65,
+          "cached_input_tokens": 0,
+          "latency_ms": 1006.2686250312254,
+          "estimated_cost_usd": null,
+          "prompt_version": "v2"
+        }
+      }
+    },
+    {
+      "id": "MSG-11",
+      "state": "succeeded",
+      "result": {
+        "classification": {
+          "categoria": "consulta",
+          "prioridad": "baja",
+          "area_sugerida": "producto",
+          "idioma": "pt",
+          "resumen": "Cliente pergunta diferença entre plano básico e plano pro para vendedores.",
+          "requiere_info": false,
+          "pregunta_seguimiento": null,
+          "confianza": 0.95,
+          "id": "MSG-11",
+          "version_prompt": "v2"
+        },
+        "metadata": {
+          "model": "gpt-4.1-mini-2025-04-14",
+          "attempt": 1,
+          "input_tokens": 1277,
+          "output_tokens": 60,
+          "cached_input_tokens": 0,
+          "latency_ms": 1150.6320420885459,
+          "estimated_cost_usd": null,
+          "prompt_version": "v2"
+        }
+      }
+    },
+    {
+      "id": "MSG-12",
+      "state": "succeeded",
+      "result": {
+        "classification": {
+          "categoria": "consulta",
+          "prioridad": "media",
+          "area_sugerida": "producto",
+          "idioma": "es",
+          "resumen": "Distribuidor pagó dos veces un pedido y solicita reembolso, casos repetidos este mes.",
+          "requiere_info": false,
+          "pregunta_seguimiento": null,
+          "confianza": 0.9,
+          "id": "MSG-12",
+          "version_prompt": "v2"
+        },
+        "metadata": {
+          "model": "gpt-4.1-mini-2025-04-14",
+          "attempt": 1,
+          "input_tokens": 1281,
+          "output_tokens": 66,
+          "cached_input_tokens": 0,
+          "latency_ms": 849.186374922283,
+          "estimated_cost_usd": null,
+          "prompt_version": "v2"
+        }
+      }
+    }
+  ]
+}
