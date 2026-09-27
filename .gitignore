@@ -17,3 +17,5 @@ CaseTestDoc/
 *.db
 *.db-wal
 *.db-shm
+evaluation/runs/*/.run.lock
+evaluation/runs/*/.*.tmp
