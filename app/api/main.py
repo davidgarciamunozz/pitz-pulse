@@ -100,6 +100,10 @@ def create_app(
     auth = [Depends(authenticate)]
     ServiceDependency = Annotated[RequestService, Depends(service)]
 
+    @app.get("/health")
+    async def health() -> dict[str, str]:
+        return {"status": "ok"}
+
     @app.post("/solicitudes", dependencies=auth, response_model=RequestSummary | InProgressResponse)
     async def submit(
         payload: SubmitRequest, response: Response, request_service: ServiceDependency

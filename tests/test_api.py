@@ -40,6 +40,17 @@ def post(client, message_id="R-1", message="Error en checkout", **kwargs):
     )
 
 
+def test_health_is_static_and_does_not_require_authentication(tmp_path, valid_model_output):
+    async def scenario():
+        async with api_client(tmp_path, valid_model_output) as (client, _, fake, _):
+            response = await client.get("/health")
+            assert response.status_code == 200
+            assert response.json() == {"status": "ok"}
+            assert fake.calls == []
+
+    asyncio.run(scenario())
+
+
 def test_post_new_duplicate_and_exact_message_conflict(tmp_path, valid_model_output):
     async def scenario():
         async with api_client(tmp_path, valid_model_output) as (client, _, fake, repository):

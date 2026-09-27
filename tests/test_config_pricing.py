@@ -56,6 +56,26 @@ def test_process_environment_takes_precedence_over_local_dotenv(tmp_path, monkey
     assert settings.timeout_seconds == 7
 
 
+def test_blank_process_values_from_compose_are_treated_as_unset(tmp_path, monkeypatch):
+    monkeypatch.setattr("app.config.PROJECT_ENV_FILE", tmp_path / "absent.env")
+    for name in (
+        "OPENAI_API_KEY",
+        "PITZ_API_KEY",
+        "OPENAI_INPUT_PRICE_PER_MILLION",
+        "OPENAI_OUTPUT_PRICE_PER_MILLION",
+        "OPENAI_CACHED_INPUT_PRICE_PER_MILLION",
+    ):
+        monkeypatch.setenv(name, "")
+
+    settings = Settings.from_env()
+
+    assert settings.api_key is None
+    assert settings.service_api_key is None
+    assert settings.input_price_per_million is None
+    assert settings.output_price_per_million is None
+    assert settings.cached_input_price_per_million is None
+
+
 def test_explicit_mapping_never_reads_local_dotenv(monkeypatch):
     def unexpected_read(*args, **kwargs):
         pytest.fail("Explicit mapping must not read a local .env file.")

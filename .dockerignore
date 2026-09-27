@@ -1,0 +1,11 @@
+**
+!pyproject.toml
+!app/
+!app/**
+!prompts/
+!prompts/**
+!migrations/
+!migrations/**
+**/__pycache__/
+**/*.py[cod]
+**/.DS_Store

@@ -66,5 +66,5 @@ class Settings(BaseModel):
             "DATABASE_PATH": "database_path",
         }
         return cls.model_validate(
-            {field: source[name] for name, field in names.items() if name in source}
+            {field: source[name] for name, field in names.items() if source.get(name)}
         )
