@@ -12,6 +12,7 @@ from pathlib import Path
 from app.classification.prompts import PROMPT_DIRECTORY, load_prompt
 from app.classification.result import ClassificationResult
 from app.schemas import Classification, ClassificationContent
+from app.summary_language import DETECTOR_PACKAGE, DETECTOR_VERSION, POLICY_VERSION
 
 ROOT = Path(__file__).resolve().parents[1]
 MESSAGES_PATH = ROOT / "evaluation" / "messages.json"
@@ -102,6 +103,11 @@ def safe_settings(settings) -> dict:
         "cached_input_price_per_million": str(settings.cached_input_price_per_million)
         if settings.cached_input_price_per_million is not None
         else None,
+        "summary_language_policy": {
+            "id": POLICY_VERSION,
+            "detector": DETECTOR_PACKAGE,
+            "detector_version": DETECTOR_VERSION,
+        },
     }
 
 

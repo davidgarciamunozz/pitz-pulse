@@ -32,6 +32,7 @@ class ErrorKind(StrEnum):
     CONFIGURATION = "configuration"
     REFUSAL = "refusal"
     INVALID_RESPONSE = "invalid_response"
+    INVALID_SUMMARY_LANGUAGE = "invalid_summary_language"
     PROVIDER = "provider_error"
 
 

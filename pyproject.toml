@@ -7,7 +7,7 @@ name = "pitz-pulse"
 version = "0.1.0"
 description = "Classification contracts for internal request triage."
 requires-python = ">=3.12,<3.13"
-dependencies = ["pydantic==2.12.5", "openai==2.54.0", "python-dotenv==1.2.3", "aiosqlite==0.22.1", "fastapi==0.141.1", "uvicorn==0.53.0"]
+dependencies = ["pydantic==2.12.5", "openai==2.54.0", "python-dotenv==1.2.3", "aiosqlite==0.22.1", "fastapi==0.141.1", "uvicorn==0.53.0", "langdetect==1.0.9"]
 
 [project.optional-dependencies]
 dev = ["pytest==8.4.2", "ruff==0.14.10", "httpx==0.28.1"]

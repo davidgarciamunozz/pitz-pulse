@@ -8,12 +8,13 @@ from pydantic import ValidationError
 
 from app.classification.pricing import ModelPricing, estimate_cost
 from app.classification.prompts import PromptDefinition, load_prompt
-from app.classification.provider import Classifier, ProviderError
+from app.classification.provider import Classifier, ErrorKind, ProviderError
 from app.classification.result import ClassificationResult, SuccessfulCallMetadata
 from app.config import Settings
 from app.masking import mask_sensitive_data
 from app.observability import configure_json_logging, log_attempt
 from app.schemas import Classification, ProviderClassification
+from app.summary_language import accepts_spanish_summary
 
 
 class ClassificationPipeline:
@@ -85,6 +86,12 @@ class ClassificationPipeline:
                             "version_prompt": self._prompt.version,
                         }
                     )
+                    if not accepts_spanish_summary(classification.resumen):
+                        raise ProviderError(
+                            ErrorKind.INVALID_SUMMARY_LANGUAGE,
+                            retryable=True,
+                            result=result,
+                        )
                 except asyncio.CancelledError:
                     log_attempt(
                         message_id=message_id,

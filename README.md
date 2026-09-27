@@ -11,7 +11,8 @@ flowchart LR
         Service -->|"reserve / read / correct"| DB[("SQLite")]
         Service -->|"new request"| Pipeline["ClassificationPipeline"]
         Pipeline --> Mask["PII masking"] --> Adapter["OpenAIClassifier"]
-        Validation["Strict schema + Pydantic"] -->|"validated result"| Service
+        Validation["Strict schema + Pydantic"] --> Language["Local Spanish-summary check"]
+        Language -->|"accepted result"| Service
         Service -->|"persist result"| DB
     end
     subgraph Provider["External provider"]
@@ -84,6 +85,8 @@ The original AI classification and provider metadata stay immutable. PATCH merge
 
 The pipeline masks supported email, CNPJ, Mexican RFC, and common Brazilian/Mexican phone forms **before** the provider boundary. Only masked text reaches OpenAI. The original is stored in local SQLite for exact idempotency and review; no duplicate masked-message copy is stored. The provider request uses `store=False`, which is not a blanket provider-retention guarantee. Masking is not comprehensive anonymization: names, addresses, obfuscated/internationalized emails, unsupported phones, context-free numbers, mistyped identifiers, prose secrets, and RFC-like false positives remain possible. Keep access to the database and request IDs appropriately controlled.
 
+For **new classifications**, structural validation is followed by the offline `langdetect==1.0.9` Spanish-summary acceptance policy (`spanish-summary-v1`). A non-Spanish or undetermined `resumen` consumes the existing bounded retry budget; explicitly edited human summaries use the same policy. Historical records remain readable and unrelated corrections do not revalidate their summaries. The detector is statistical, not a language guarantee: short Spanish summaries can be falsely rejected, and false acceptance remains possible. No text is sent to a second service for detection.
+
 API startup enables content-free JSON logging for subsequent model attempts: ID, model, prompt version, attempt, latency, tokens, nullable cost, success, and sanitized error type. The logger does not add the `mensaje` payload, masked input, prompt, model output, or key; IDs themselves must be nonsensitive because they are logged. Requests time out after 15 seconds per attempt by default; eligible transient/invalid-result failures get bounded exponential-backoff retries. Failed or interrupted DB reservations are not automatically replayed, and no crash-recovery operator workflow exists yet.
 
 ## Local development and tests
@@ -107,7 +110,7 @@ Run the quality suite:
 .venv/bin/ruff format --check .
 ```
 
-The latest verified result is **253 passing tests** in both pytest entry points. Tests use deterministic fakes and a global network blocker; they do not call the real model API.
+The test suite uses deterministic fakes and a global network blocker; it does not call the real model API.
 
 ## Evaluation evidence
 
@@ -118,7 +121,7 @@ The frozen 12-message **development** set is [evaluation/messages.json](evaluati
 | Selected V1 (`v1-01`) | 10/12 | 8/12 | 9/12 | 12/12 | 8/12 | **47/60 (78.33%)** | 3/12 | **7/12** |
 | Latest valid V2 (`v2-02`) | 11/12 | 6/12 | 10/12 | 12/12 | 8/12 | **47/60 (78.33%)** | 3/12 | **9/12** |
 
-V2 corrected six V1 field errors and introduced six new regressions, with worse priority accuracy. V1 remains selected conservatively; this does **not** establish that V1 is universally better. The same 12 messages informed V2, so comparison is prompt-development evidence, not independent validation or generalization. `v2-01` is a preserved DNS/network infrastructure failure (36 connection-failed attempts, zero classifications); `v2-02` is the valid 12/12-successful V2 experiment. **Known contract gap:** the selected V1 results have only 7/12 Spanish `resumen` values despite the requirement that all summaries be Spanish. All 12 summaries satisfy the 20-word limit. V2 reached 9/12 Spanish summaries but did not solve this, so the root export must not be treated as fully contract-compliant.
+V2 corrected six V1 field errors and introduced six new regressions, with worse priority accuracy. V1 remains selected conservatively; this does **not** establish that V1 is universally better. The same 12 messages informed V2, so comparison is prompt-development evidence, not independent validation or generalization. `v2-01` is a preserved DNS/network infrastructure failure (36 connection-failed attempts, zero classifications); `v2-02` is the valid 12/12-successful V2 experiment. **Historical contract gap:** the selected V1 results have only 7/12 Spanish `resumen` values despite the requirement that all summaries be Spanish. All 12 summaries satisfy the 20-word limit. V2 reached 9/12 Spanish summaries but did not solve this. Both experiments predate the local runtime policy; their files were neither repaired nor regenerated, and root `resultados.json` remains the original V1 export, not fully contract-compliant historical output.
 
 V1 confidence averages were 0.9167 for fully matching messages and 0.8833 for disagreements; V2 averages were 0.9333 and 0.9111. High-confidence mistakes exist. Confidence is stored, exposed for review, and analyzed offline, **not calibrated** or used for an automatic review threshold.
 
@@ -144,7 +147,7 @@ Export requires 12 validated successes. Per-run `run.json`, `report.json`, and `
 
 ## Limits and assessment artifacts
 
-Remaining priorities: enforce Spanish-summary language deterministically and test on an independent multilingual holdout; add correction history/actor attribution and recovery for failed or abandoned reservations; then design secure asynchronous Slack ingress and load-test before changing database architecture. Current SQLite and process-local concurrency are deliberate take-home trade-offs. The Docker base image and transitive dependencies are not fully locked, so image-level reproducibility is limited. Slack Events, queueing, dead-letter handling, and a web UI are **proposals, not implemented features**.
+Remaining priorities: assess the statistical Spanish-summary policy on an independent multilingual holdout and consider targeted repair if needed; add correction history/actor attribution and recovery for failed or abandoned reservations; then design secure asynchronous Slack ingress and load-test before changing database architecture. Current SQLite and process-local concurrency are deliberate take-home trade-offs. The Docker base image and transitive dependencies are not fully locked, so image-level reproducibility is limited. Slack Events, queueing, dead-letter handling, and a web UI are **proposals, not implemented features**.
 
 - [Selected V1 output](resultados.json) and [human labels](etiquetas_esperadas.json)
 - [Selected prompt V1](prompts/v1.md) and [experimental V2](prompts/v2.md)

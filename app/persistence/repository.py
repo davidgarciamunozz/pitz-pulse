@@ -16,6 +16,7 @@ from app.persistence.models import (
     RequestState,
 )
 from app.schemas import Classification, ClassificationContent
+from app.summary_language import accepts_spanish_summary
 
 CATEGORIES = {"bug", "datos", "acceso", "automatizacion", "consulta", "otro"}
 PRIORITIES = {"alta", "media", "baja"}
@@ -163,6 +164,11 @@ class RequestRepository:
 
     async def correct(self, message_id: str, changes: dict[str, object]) -> RequestRecord:
         if not changes or set(changes) - set(ClassificationContent.model_fields):
+            raise InvalidCorrection()
+        if "resumen" in changes and (
+            not isinstance(changes["resumen"], str)
+            or not accepts_spanish_summary(changes["resumen"])
+        ):
             raise InvalidCorrection()
         async with connect_database(self.database_path) as connection:
             await connection.execute("BEGIN IMMEDIATE")

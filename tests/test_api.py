@@ -11,10 +11,12 @@ from pydantic import SecretStr
 
 from app.api.main import create_app
 from app.classification.provider import ErrorKind, ProviderError
+from app.classification.result import ClassificationResult, SuccessfulCallMetadata
 from app.config import Settings
 from app.observability import LOGGER_NAME
 from app.persistence.models import RequestState
 from app.persistence.repository import RequestRepository
+from app.schemas import Classification
 from tests.fakes import RecordingFakeClassifier
 
 AUTH = {"X-API-Key": "test-only-api-key"}
@@ -61,6 +63,67 @@ def test_health_is_static_and_does_not_require_authentication(tmp_path, valid_mo
             response = await client.get("/health")
             assert response.status_code == 200
             assert response.json() == {"status": "ok"}
+            assert fake.calls == []
+
+    asyncio.run(scenario())
+
+
+def test_explicit_summary_correction_uses_local_language_policy(tmp_path, valid_model_output):
+    async def scenario():
+        async with api_client(tmp_path, valid_model_output) as (client, _, _, repository):
+            assert (await post(client)).status_code == 201
+            before = await repository.get("R-1")
+            portuguese = "O checkout está cobrando duas vezes alguns clientes."
+            rejected = await client.patch(
+                "/solicitudes/R-1", json={"resumen": portuguese}, headers=AUTH
+            )
+            assert rejected.status_code == 422
+            assert rejected.json() == {"detail": "Invalid correction."}
+            assert portuguese not in rejected.text
+            assert await repository.get("R-1") == before
+
+            spanish = "El checkout está cobrando dos veces a algunos clientes."
+            accepted = await client.patch(
+                "/solicitudes/R-1", json={"resumen": spanish}, headers=AUTH
+            )
+            assert accepted.status_code == 200
+            assert accepted.json()["human_correction"]["resumen"] == spanish
+            assert accepted.json()["ai_classification"] == before.ai_classification.model_dump()
+
+    asyncio.run(scenario())
+
+
+def test_unrelated_correction_does_not_revalidate_legacy_non_spanish_summary(
+    tmp_path, valid_model_output
+):
+    async def scenario():
+        async with api_client(tmp_path, valid_model_output) as (client, _, fake, repository):
+            await repository.reserve("legacy", "Historical request")
+            portuguese = "O checkout está cobrando duas vezes alguns clientes."
+            historical = Classification.model_validate(
+                {
+                    "id": "legacy",
+                    **valid_model_output,
+                    "resumen": portuguese,
+                    "version_prompt": "v1",
+                }
+            )
+            await repository.complete(
+                "legacy",
+                ClassificationResult(
+                    classification=historical,
+                    metadata=SuccessfulCallMetadata(
+                        model="historical-model", attempt=1, latency_ms=1.0, prompt_version="v1"
+                    ),
+                ),
+            )
+            response = await client.patch(
+                "/solicitudes/legacy", json={"prioridad": "media"}, headers=AUTH
+            )
+            assert response.status_code == 200
+            assert response.json()["ai_classification"]["resumen"] == portuguese
+            assert response.json()["human_correction"]["resumen"] == portuguese
+            assert response.json()["effective_classification"]["prioridad"] == "media"
             assert fake.calls == []
 
     asyncio.run(scenario())
