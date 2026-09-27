@@ -1,0 +1,290 @@
+{
+  "run_id": "v1-01",
+  "prompt_version": "v1",
+  "configured_model": "gpt-4.1-mini-2025-04-14",
+  "actual_models": [
+    "gpt-4.1-mini-2025-04-14"
+  ],
+  "inputs": {
+    "prompt_sha256": "dec3e6d817076f740df4be73a54a5af01cecf5666b6ee7c1c570ab7113706c00",
+    "messages_sha256": "e998765ab5721e3ad7c32c615efae5e37a16bc739573c44f7f83e83a8ad685e5",
+    "references_sha256": "33028561ebe848aaef3aa4731bb01b68b9d16c44d077f90f667a943bb23ae35d"
+  },
+  "scores": {
+    "fields": {
+      "categoria": {
+        "correct": 10,
+        "total": 12,
+        "accuracy": 0.8333333333333334
+      },
+      "prioridad": {
+        "correct": 8,
+        "total": 12,
+        "accuracy": 0.6666666666666666
+      },
+      "area_sugerida": {
+        "correct": 9,
+        "total": 12,
+        "accuracy": 0.75
+      },
+      "idioma": {
+        "correct": 12,
+        "total": 12,
+        "accuracy": 1.0
+      },
+      "requiere_info": {
+        "correct": 8,
+        "total": 12,
+        "accuracy": 0.6666666666666666
+      }
+    },
+    "overall_exact_fields": {
+      "correct": 47,
+      "total": 60,
+      "accuracy": 0.7833333333333333
+    },
+    "all_five_fields": {
+      "correct": 3,
+      "total": 12,
+      "accuracy": 0.25
+    },
+    "exact_message_ids": [
+      "MSG-01",
+      "MSG-06",
+      "MSG-08"
+    ],
+    "mismatches": [
+      {
+        "id": "MSG-02",
+        "state": "succeeded",
+        "fields": [
+          {
+            "field": "requiere_info",
+            "expected": false,
+            "actual": true
+          }
+        ]
+      },
+      {
+        "id": "MSG-03",
+        "state": "succeeded",
+        "fields": [
+          {
+            "field": "prioridad",
+            "expected": "baja",
+            "actual": "media"
+          }
+        ]
+      },
+      {
+        "id": "MSG-04",
+        "state": "succeeded",
+        "fields": [
+          {
+            "field": "prioridad",
+            "expected": "baja",
+            "actual": "media"
+          },
+          {
+            "field": "requiere_info",
+            "expected": false,
+            "actual": true
+          }
+        ]
+      },
+      {
+        "id": "MSG-05",
+        "state": "succeeded",
+        "fields": [
+          {
+            "field": "area_sugerida",
+            "expected": "digital_transformation",
+            "actual": "backend"
+          }
+        ]
+      },
+      {
+        "id": "MSG-07",
+        "state": "succeeded",
+        "fields": [
+          {
+            "field": "categoria",
+            "expected": "datos",
+            "actual": "consulta"
+          },
+          {
+            "field": "prioridad",
+            "expected": "baja",
+            "actual": "media"
+          }
+        ]
+      },
+      {
+        "id": "MSG-09",
+        "state": "succeeded",
+        "fields": [
+          {
+            "field": "area_sugerida",
+            "expected": "devops",
+            "actual": "backend"
+          }
+        ]
+      },
+      {
+        "id": "MSG-10",
+        "state": "succeeded",
+        "fields": [
+          {
+            "field": "requiere_info",
+            "expected": false,
+            "actual": true
+          }
+        ]
+      },
+      {
+        "id": "MSG-11",
+        "state": "succeeded",
+        "fields": [
+          {
+            "field": "requiere_info",
+            "expected": false,
+            "actual": true
+          }
+        ]
+      },
+      {
+        "id": "MSG-12",
+        "state": "succeeded",
+        "fields": [
+          {
+            "field": "categoria",
+            "expected": "bug",
+            "actual": "consulta"
+          },
+          {
+            "field": "prioridad",
+            "expected": "alta",
+            "actual": "media"
+          },
+          {
+            "field": "area_sugerida",
+            "expected": "backend",
+            "actual": "producto"
+          }
+        ]
+      }
+    ],
+    "failures": [],
+    "failure_counts": {},
+    "failure_category_counts": {},
+    "confidence": {
+      "exact": {
+        "count": 3,
+        "mean": 0.9166666666666666,
+        "median": 0.9
+      },
+      "disagreement": {
+        "count": 9,
+        "mean": 0.8833333333333333,
+        "median": 0.9
+      },
+      "lowest_successful": [
+        {
+          "id": "MSG-09",
+          "confidence": 0.8
+        },
+        {
+          "id": "MSG-05",
+          "confidence": 0.85
+        },
+        {
+          "id": "MSG-01",
+          "confidence": 0.9
+        },
+        {
+          "id": "MSG-02",
+          "confidence": 0.9
+        },
+        {
+          "id": "MSG-03",
+          "confidence": 0.9
+        },
+        {
+          "id": "MSG-04",
+          "confidence": 0.9
+        },
+        {
+          "id": "MSG-06",
+          "confidence": 0.9
+        },
+        {
+          "id": "MSG-07",
+          "confidence": 0.9
+        },
+        {
+          "id": "MSG-10",
+          "confidence": 0.9
+        },
+        {
+          "id": "MSG-11",
+          "confidence": 0.9
+        },
+        {
+          "id": "MSG-12",
+          "confidence": 0.9
+        },
+        {
+          "id": "MSG-08",
+          "confidence": 0.95
+        }
+      ],
+      "highest_confidence_mistakes": [
+        {
+          "id": "MSG-02",
+          "confidence": 0.9
+        },
+        {
+          "id": "MSG-03",
+          "confidence": 0.9
+        },
+        {
+          "id": "MSG-04",
+          "confidence": 0.9
+        },
+        {
+          "id": "MSG-07",
+          "confidence": 0.9
+        },
+        {
+          "id": "MSG-10",
+          "confidence": 0.9
+        },
+        {
+          "id": "MSG-11",
+          "confidence": 0.9
+        },
+        {
+          "id": "MSG-12",
+          "confidence": 0.9
+        },
+        {
+          "id": "MSG-05",
+          "confidence": 0.85
+        },
+        {
+          "id": "MSG-09",
+          "confidence": 0.8
+        }
+      ]
+    }
+  },
+  "usage": {
+    "observed_model_calls": 12,
+    "input_tokens_known_subtotal": 10699,
+    "output_tokens_known_subtotal": 964,
+    "estimated_cost_usd_known_subtotal": 0,
+    "usage_complete": true,
+    "cost_complete": false,
+    "accounting_incomplete_reasons": []
+  }
+}
