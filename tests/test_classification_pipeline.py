@@ -33,9 +33,9 @@ def test_raw_identifiers_never_reach_the_recording_classifier(provider_response)
         ClassificationPipeline(fake).classify(message_id="MSG-PRIVACY", raw_message=raw_message)
     )
 
-    assert fake.calls == [("Cliente [CNPJ] / [RFC]: [EMAIL], [PHONE].", "v1")]
+    assert fake.calls == [("Cliente [CNPJ] / [RFC]: [EMAIL], [PHONE].", "v3")]
     assert result.id == "MSG-PRIVACY"
-    assert result.version_prompt == "v1"
+    assert result.version_prompt == "v3"
     assert result.categoria == "bug"
     for sensitive_value in (
         "11.222.333/0001-81",
@@ -55,7 +55,7 @@ def test_fake_returns_deterministic_classification_without_a_network_client(prov
     assert first.categoria == second.categoria == "bug"
     assert first.id == "MSG-1"
     assert second.id == "MSG-2"
-    assert fake.calls == [("Request A", "v1"), ("Request B", "v1")]
+    assert fake.calls == [("Request A", "v3"), ("Request B", "v3")]
 
 
 def test_invalid_provider_result_is_rejected_after_masking(provider_response):
@@ -67,7 +67,7 @@ def test_invalid_provider_result_is_rejected_after_masking(provider_response):
                 message_id="MSG-1", raw_message="ana@example.com"
             )
         )
-    assert fake.calls == [("[EMAIL]", "v1")]
+    assert fake.calls == [("[EMAIL]", "v3")]
 
 
 def test_provider_failure_propagates_without_exposing_raw_message(provider_response):
@@ -76,7 +76,7 @@ def test_provider_failure_propagates_without_exposing_raw_message(provider_respo
         asyncio.run(
             ClassificationPipeline(fake).classify(message_id="MSG-1", raw_message="ana@example.com")
         )
-    assert fake.calls == [("[EMAIL]", "v1")]
+    assert fake.calls == [("[EMAIL]", "v3")]
 
 
 def test_classify_with_metadata_preserves_successful_provider_usage(provider_response):
@@ -85,7 +85,7 @@ def test_classify_with_metadata_preserves_successful_provider_usage(provider_res
 
         async def classify(self, *, masked_message, prompt):
             assert masked_message == "[EMAIL]"
-            assert prompt.version == "v1"
+            assert prompt.version == "v3"
             return ProviderResult(provider_response, "test-model", 12.5, TokenUsage(100, 20, 10))
 
     pipeline = ClassificationPipeline(MetadataClassifier())
@@ -100,4 +100,4 @@ def test_classify_with_metadata_preserves_successful_provider_usage(provider_res
     assert result.metadata.cached_input_tokens == 10
     assert result.metadata.latency_ms == 12.5
     assert result.metadata.estimated_cost_usd is None
-    assert result.metadata.prompt_version == result.classification.version_prompt == "v1"
+    assert result.metadata.prompt_version == result.classification.version_prompt == "v3"

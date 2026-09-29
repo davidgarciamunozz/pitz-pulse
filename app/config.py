@@ -17,7 +17,7 @@ class Settings(BaseModel):
     api_key: SecretStr | None = Field(default=None, repr=False)
     service_api_key: SecretStr | None = Field(default=None, repr=False)
     model: str = Field(default="gpt-4.1-mini-2025-04-14", min_length=1)
-    prompt_version: str = "v1"
+    prompt_version: str = "v3"
     timeout_seconds: float = Field(default=15, gt=0)
     max_attempts: int = Field(default=3, ge=1, le=5)
     concurrency_limit: int = Field(default=3, ge=1)

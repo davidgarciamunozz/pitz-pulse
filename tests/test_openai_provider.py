@@ -77,7 +77,7 @@ def test_sdk_request_uses_schema_temperature_prompt_and_masked_input(valid_model
         )
 
     classification = run_with_transport(handler, operation)
-    assert classification.id == "APPLICATION-ID" and classification.version_prompt == "v1"
+    assert classification.id == "APPLICATION-ID" and classification.version_prompt == "v3"
     assert len(requests) == 1
     request = requests[0]
     body = json.loads(request.content)

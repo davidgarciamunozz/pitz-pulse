@@ -13,7 +13,7 @@ class PromptDefinition:
     content: str
 
 
-def load_prompt(version: str = "v1") -> PromptDefinition:
+def load_prompt(version: str = "v3") -> PromptDefinition:
     if not re.fullmatch(r"v[1-9][0-9]*", version):
         raise ValueError("Prompt version must use the form v1, v2, and so on.")
     path = PROMPT_DIRECTORY / f"{version}.md"

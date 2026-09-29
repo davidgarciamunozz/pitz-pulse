@@ -1,10 +1,12 @@
 """Runtime policy provenance must not rewrite or revalidate frozen experiments."""
 
+import json
 from copy import deepcopy
 
 import pytest
 
 from app.config import Settings
+from app.summary_language import accepts_spanish_summary
 from evaluation.artifacts import (
     ROOT,
     load_run,
@@ -20,15 +22,25 @@ def test_historical_runs_still_score_without_revalidating_summary_language():
     v2 = load_run(ROOT / "evaluation/runs/v2-02")
     assert score_run(v1)["overall_exact_fields"]["correct"] == 47
     assert score_run(v2)["overall_exact_fields"]["correct"] == 47
-    assert score_result_file(ROOT / "resultados.json")["overall_exact_fields"]["correct"] == 47
+    v1_export = ROOT / "evaluation/runs/v1-01/resultados.json"
+    assert score_result_file(v1_export)["overall_exact_fields"]["correct"] == 47
     comparison = compare_runs(v1, v2)
     assert len(comparison["corrected"]) == 6
     assert len(comparison["regressions"]) == 6
     assert "summary_language_policy" not in v1["execution"]
     assert "summary_language_policy" not in v2["execution"]
-    assert sha256_file(ROOT / "resultados.json") == (
+    assert sha256_file(v1_export) == (
         "20da4b89aacec623cb97ad7bfcc53e71ede1ef1b3fd23aa6235c2f24402d3cd5"
     )
+
+
+def test_root_results_are_the_selected_v3_export_with_spanish_summaries():
+    root_results = ROOT / "resultados.json"
+    assert sha256_file(root_results) == sha256_file(ROOT / "evaluation/runs/v3-01/resultados.json")
+    results = json.loads(root_results.read_text(encoding="utf-8"))
+    assert {item["version_prompt"] for item in results} == {"v3"}
+    assert all(accepts_spanish_summary(item["resumen"]) for item in results)
+    assert score_result_file(root_results)["overall_exact_fields"]["correct"] == 45
 
 
 def test_new_run_records_policy_and_resume_rejects_policy_drift():

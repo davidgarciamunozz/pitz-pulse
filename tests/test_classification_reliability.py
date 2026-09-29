@@ -152,7 +152,7 @@ def test_usage_latency_cost_and_invalid_attempts_are_logged_privately(valid_mode
         assert event["latency_ms"] == 12.5
         assert event["input_tokens"] == 100 and event["output_tokens"] == 20
         assert event["estimated_cost_usd"] == 0.00014
-        assert event["prompt_version"] == "v1"
+        assert event["prompt_version"] == "v3"
     assert events[0]["error_type"] == "invalid_classification"
     assert raw not in caplog.text and "ana@example.com" not in caplog.text
     assert "+52 55 1234 5678" not in caplog.text

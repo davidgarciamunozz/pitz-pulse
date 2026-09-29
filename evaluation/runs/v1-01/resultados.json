@@ -4,24 +4,24 @@
     "prioridad": "alta",
     "area_sugerida": "backend",
     "idioma": "es",
-    "resumen": "Vendedor en Guadalajara no puede subir catálogo, error 500 al cargar Excel, campaña inicia lunes.",
+    "resumen": "Vendedor en Guadalajara no puede subir catálogo, error 500 al cargar Excel.",
     "requiere_info": true,
-    "pregunta_seguimiento": "¿Podrían proporcionar el archivo Excel y detalles del error para investigar el problema?",
+    "pregunta_seguimiento": "¿Podrían proporcionar el archivo Excel que genera el error 500 para analizar el problema?",
     "confianza": 0.9,
     "id": "MSG-01",
-    "version_prompt": "v3"
+    "version_prompt": "v1"
   },
   {
     "categoria": "datos",
     "prioridad": "media",
     "area_sugerida": "data",
     "idioma": "pt",
-    "resumen": "Solicitan planilla con ventas de agosto por estado, total y comisión para cierre mensual.",
+    "resumen": "Solicitação de planilha com vendas de agosto por estado, valor total e comissão.",
     "requiere_info": true,
-    "pregunta_seguimiento": "Você poderia especificar quais colunas e detalhes adicionais deseja na planilha?",
+    "pregunta_seguimiento": "Você poderia especificar quais estados devem ser incluídos e o formato desejado da planilha?",
     "confianza": 0.9,
     "id": "MSG-02",
-    "version_prompt": "v3"
+    "version_prompt": "v1"
   },
   {
     "categoria": "acceso",
@@ -33,43 +33,43 @@
     "pregunta_seguimiento": "¿Podrías proporcionar tu nombre completo y correo electrónico para gestionar el acceso?",
     "confianza": 0.9,
     "id": "MSG-03",
-    "version_prompt": "v3"
+    "version_prompt": "v1"
   },
   {
     "categoria": "automatizacion",
     "prioridad": "media",
     "area_sugerida": "digital_transformation",
     "idioma": "pt",
-    "resumen": "Solicita automatizar la copia manual diaria de pedidos a planilla y envío por email.",
+    "resumen": "Solicita automatizar cópia manual diária de pedidos para planilha e envio por e-mail.",
     "requiere_info": true,
-    "pregunta_seguimiento": "Quais sistemas ou ferramentas você utiliza para o painel, planilha e envio de e-mails?",
+    "pregunta_seguimiento": "Quais sistemas ou ferramentas você utiliza atualmente para gerenciar os pedidos e enviar os e-mails?",
     "confianza": 0.9,
     "id": "MSG-04",
-    "version_prompt": "v3"
+    "version_prompt": "v1"
   },
   {
-    "categoria": "datos",
+    "categoria": "bug",
     "prioridad": "media",
-    "area_sugerida": "data",
+    "area_sugerida": "backend",
     "idioma": "es",
-    "resumen": "No aparecen registros de la última campaña en HubSpot, posible problema de datos.",
+    "resumen": "No aparecen registros de la última campaña en HubSpot, posible problema de integración.",
     "requiere_info": true,
-    "pregunta_seguimiento": "¿Podrías proporcionar detalles sobre la campaña y cómo integran los datos con HubSpot?",
+    "pregunta_seguimiento": "¿Podrías proporcionar detalles sobre la campaña y si hay mensajes de error o logs disponibles?",
     "confianza": 0.85,
     "id": "MSG-05",
-    "version_prompt": "v3"
+    "version_prompt": "v1"
   },
   {
     "categoria": "bug",
     "prioridad": "media",
     "area_sugerida": "frontend",
     "idioma": "pt",
-    "resumen": "Botón de finalizar compra desaparece en celular al aplicar cupón, funciona en computadora.",
+    "resumen": "Botão de finalizar compra desaparece no celular ao aplicar cupom, funciona no computador.",
     "requiere_info": true,
     "pregunta_seguimiento": "Você pode informar o modelo e sistema operacional do celular onde o problema ocorre?",
     "confianza": 0.9,
     "id": "MSG-06",
-    "version_prompt": "v3"
+    "version_prompt": "v1"
   },
   {
     "categoria": "consulta",
@@ -78,34 +78,34 @@
     "idioma": "es",
     "resumen": "Consulta sobre número de talleres activos en Monterrey para reunión con distribuidor.",
     "requiere_info": true,
-    "pregunta_seguimiento": "¿Podrías especificar el periodo de tiempo para considerar los talleres activos?",
+    "pregunta_seguimiento": "¿Podrías especificar el periodo de tiempo para considerar los talleres activos en Monterrey?",
     "confianza": 0.9,
     "id": "MSG-07",
-    "version_prompt": "v3"
+    "version_prompt": "v1"
   },
   {
     "categoria": "bug",
     "prioridad": "alta",
     "area_sugerida": "backend",
     "idioma": "pt",
-    "resumen": "Notas fiscais de hoy con CNPJ incorrecto del vendedor, clientes reclamaron.",
+    "resumen": "Notas fiscais de hoje com CNPJ errado do vendedor, clientes reclamaram.",
     "requiere_info": true,
-    "pregunta_seguimiento": "Você pode fornecer exemplos específicos das notas fiscais com CNPJ incorreto?",
-    "confianza": 0.9,
+    "pregunta_seguimiento": "Você pode informar quais notas fiscais ou vendedores estão com o CNPJ incorreto?",
+    "confianza": 0.95,
     "id": "MSG-08",
-    "version_prompt": "v3"
+    "version_prompt": "v1"
   },
   {
     "categoria": "bug",
     "prioridad": "media",
     "area_sugerida": "backend",
-    "idioma": "pt",
+    "idioma": "es",
     "resumen": "La plataforma está lenta, afecta la experiencia de uso.",
     "requiere_info": true,
-    "pregunta_seguimiento": "Você pode especificar quando a lentidão ocorre e se afeta todos os usuários?",
+    "pregunta_seguimiento": "¿Desde cuándo han notado la lentitud y afecta a todos los usuarios o solo a algunos?",
     "confianza": 0.8,
     "id": "MSG-09",
-    "version_prompt": "v3"
+    "version_prompt": "v1"
   },
   {
     "categoria": "automatizacion",
@@ -114,33 +114,33 @@
     "idioma": "es",
     "resumen": "Solicitan automatizar mensajes para aniversarios laborales en Pitz.",
     "requiere_info": true,
-    "pregunta_seguimiento": "¿Desea que el mensaje sea personalizado y qué canal de comunicación prefiere?",
+    "pregunta_seguimiento": "¿Desean que el mensaje sea personalizado y a través de qué canal debe enviarse?",
     "confianza": 0.9,
     "id": "MSG-10",
-    "version_prompt": "v3"
+    "version_prompt": "v1"
   },
   {
     "categoria": "consulta",
     "prioridad": "baja",
     "area_sugerida": "producto",
     "idioma": "pt",
-    "resumen": "Consulta sobre diferencias entre plan básico y plan pro para vendedores.",
+    "resumen": "Diferença entre plano básico e plano pro para vendedores explicada.",
     "requiere_info": true,
-    "pregunta_seguimiento": "Você pode especificar quais funcionalidades ou benefícios gostaria de comparar entre os planos?",
+    "pregunta_seguimiento": "Quais são as funcionalidades específicas que diferenciam o plano básico do plano pro para vendedores?",
     "confianza": 0.9,
     "id": "MSG-11",
-    "version_prompt": "v3"
+    "version_prompt": "v1"
   },
   {
     "categoria": "consulta",
     "prioridad": "media",
     "area_sugerida": "producto",
     "idioma": "es",
-    "resumen": "Distribuidor pagó dos veces un pedido y solicita reembolso, ya hay tres casos este mes.",
+    "resumen": "Distribuidor pagó dos veces un pedido y solicita reembolso, casos repetidos este mes.",
     "requiere_info": true,
-    "pregunta_seguimiento": "¿Podrías proporcionar detalles sobre el proceso actual para gestionar reembolsos?",
+    "pregunta_seguimiento": "¿Cuál es el procedimiento actual para procesar reembolsos por pagos duplicados?",
     "confianza": 0.9,
     "id": "MSG-12",
-    "version_prompt": "v3"
+    "version_prompt": "v1"
   }
 ]

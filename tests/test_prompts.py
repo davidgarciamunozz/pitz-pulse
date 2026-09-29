@@ -12,13 +12,29 @@ from app.schemas import ProviderClassification
 from tests.fakes import RecordingFakeClassifier
 
 
-def test_v1_loads_from_file_and_is_immutable():
+def test_selected_v3_loads_from_file_and_is_immutable():
     prompt = load_prompt()
-    path = Path(__file__).resolve().parents[1] / "prompts/v1.md"
-    assert prompt.version == path.stem == "v1"
+    path = Path(__file__).resolve().parents[1] / "prompts/v3.md"
+    assert prompt.version == path.stem == Settings().prompt_version == "v3"
     assert prompt.content == path.read_text(encoding="utf-8")
     with pytest.raises(FrozenInstanceError):
         prompt.version = "unrelated"
+
+
+@pytest.mark.parametrize("version", ["v3", "v4"])
+def test_language_fix_prompts_only_add_an_output_language_rule_to_v1(version):
+    v1 = load_prompt("v1").content
+    candidate = load_prompt(version).content
+    assert candidate.startswith(v1)
+    added = " ".join(candidate.removeprefix(v1).split())
+    assert "Output-language rule" in added
+    assert "translate its content into a Spanish summary" in added
+    assert "Only pregunta_seguimiento follows" in added
+
+
+def test_v4_keeps_idioma_tied_to_the_original_message():
+    added = " ".join(load_prompt("v4").content.removeprefix(load_prompt("v1").content).split())
+    assert "idioma always describes the language of the original message" in added
 
 
 def test_prompt_contains_contract_and_rubric_without_reference_answers():
@@ -71,6 +87,6 @@ def test_classification_version_comes_from_actual_loaded_prompt(valid_model_outp
         fake, prompt=load_prompt(), settings=Settings(prompt_version="v9")
     )
     result = asyncio.run(pipeline.classify(message_id="request-1", raw_message="Un error"))
-    assert result.version_prompt == fake.calls[0][1] == "v1"
+    assert result.version_prompt == fake.calls[0][1] == "v3"
     with pytest.raises(TypeError):
         pipeline.classify(message_id="request-1", raw_message="Un error", prompt_version="invented")

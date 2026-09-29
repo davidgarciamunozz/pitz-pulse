@@ -29,7 +29,7 @@ from evaluation.scoring import compare_runs, score_outcomes, score_result_file, 
 def complete_run():
     run = new_run(
         "synthetic-v1",
-        Settings().prompt_version,
+        "v1",
         MESSAGES_PATH.parent.parent / "prompts/v1.md",
         Settings(),
     )

@@ -137,11 +137,11 @@ def test_post_new_duplicate_and_exact_message_conflict(tmp_path, valid_model_out
             body = first.json()
             assert body["id"] == "R-1" and body["state"] == "completed"
             assert body["ai_classification"]["id"] == "R-1"
-            assert body["ai_classification"]["version_prompt"] == "v1"
+            assert body["ai_classification"]["version_prompt"] == "v3"
             assert body["provider_metadata"]["model"] == "test-model"
             assert "mensaje" not in body
             assert "ana@example.com" not in first.text
-            assert fake.calls == [("[EMAIL]", "v1")]
+            assert fake.calls == [("[EMAIL]", "v3")]
 
             duplicate = await post(client, message="ana@example.com")
             assert duplicate.status_code == 200 and duplicate.json() == body
@@ -486,7 +486,7 @@ def test_api_startup_enables_content_free_model_call_info_events(
             assert not logger.propagate
             response = await post(client, message_id="LOG-1", message="Correo ana@example.com")
             assert response.status_code == 201
-            assert fake.calls == [("Correo [EMAIL]", "v1")]
+            assert fake.calls == [("Correo [EMAIL]", "v3")]
 
     asyncio.run(scenario())
 
@@ -496,7 +496,7 @@ def test_api_startup_enables_content_free_model_call_info_events(
         "event": "model_call",
         "message_id": "LOG-1",
         "model": "test-model",
-        "prompt_version": "v1",
+        "prompt_version": "v3",
         "attempt": 1,
         "latency_ms": 0,
         "input_tokens": None,

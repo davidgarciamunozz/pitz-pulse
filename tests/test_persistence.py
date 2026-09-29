@@ -41,13 +41,13 @@ def test_round_trip_and_new_repository_instance(tmp_path, valid_model_output):
         assert created.ai_classification.confianza == 0.85
         assert created.provider_metadata.model == "test-model"
         assert created.provider_metadata.attempt == 1
-        assert created.provider_metadata.prompt_version == "v1"
+        assert created.provider_metadata.prompt_version == "v3"
         assert created.provider_metadata.input_tokens is None
         assert created.provider_metadata.estimated_cost_usd is None
         assert created.effective_category == "bug"
         assert created.classified_at is not None
         assert created.created_at <= created.classified_at <= created.updated_at
-        assert fake.calls == [("Solicitante [EMAIL] informa un error.", "v1")]
+        assert fake.calls == [("Solicitante [EMAIL] informa un error.", "v3")]
 
         reopened = RequestRepository(path)
         persisted = await reopened.get("R-1")
